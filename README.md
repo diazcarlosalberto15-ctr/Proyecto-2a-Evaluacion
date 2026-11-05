@@ -75,10 +75,8 @@ Este comando ejecuta `sh.status(true)` desde `mongos`. Guarda una captura antes 
 
 ### Galería de evidencias de Emilio
 
-Las capturas deben ser obtenidas durante una ejecución real y agregadas a `docs/evidencias/emilio/`. Los nombres y el contenido esperado se encuentran en [docs/evidencia-emilio.md](docs/evidencia-emilio.md). La carpeta está preparada, pero las imágenes deben añadirse después de ejecutar el proyecto en el equipo donde corre Docker.
+<img width="1917" height="1034" alt="chunks 01" src="https://github.com/user-attachments/assets/cb76f8ea-b98c-424a-86ef-8d000d5c0830" />
+<img width="1917" height="1029" alt="prueba del crud 01" src="https://github.com/user-attachments/assets/0931e53d-ff4f-47d2-9313-835d782a3912" />
+<img width="1916" height="1028" alt="01-sh-status-inicial" src="https://github.com/user-attachments/assets/e164c801-7299-451b-a9ee-78e0106ec64e" />
 
-## Consideración sobre el balanceo
 
-El balanceador de MongoDB trabaja en segundo plano y no migra chunks después de cada insert, update, consulta o delete. Las operaciones CRUD de este apartado sirven para documentar la distribución antes y después de cada acción; una migración solo debe reportarse cuando las capturas de `sh.status(true)` muestran un cambio real en la propiedad de los chunks. Con el tamaño predeterminado de chunk de 128 MB, la documentación de MongoDB indica un umbral de diferencia de 384 MB entre shards para iniciar el balanceo.
-
-Más información: [MongoDB — Sharded Cluster Balancer](https://www.mongodb.com/docs/manual/core/sharding-balancer-administration/).
