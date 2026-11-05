@@ -1,16 +1,33 @@
-// Seleccionamos la base de datos
-const db = db.getSiblingDB('sample_mflix');
+// Prepara sample_mflix.movies para fragmentación hashed.
+// Este script se ejecuta desde el router mongos.
 
-// 1. Agregar el id_movie a todos los documentos
-db.movies.updateMany({}, [{ $set: { id_movie: { $toString: "$_id" } } }]);
+const moviesDb = db.getSiblingDB("sample_mflix");
+const movies = moviesDb.getCollection("movies");
+const namespace = "sample_mflix.movies";
 
-// 2. Crear un índice para la nueva Shard Key 
-db.movies.createIndex({ "id_movie": "hashed" });
+if (!moviesDb.getCollectionNames().includes("movies")) {
+  throw new Error("No existe sample_mflix.movies. Importa primero el dataset de películas.");
+}
 
-// 3. Habilitar sharding en la base de datos
+// Crear id_movie a partir de _id para que cada documento tenga shard key.
+const transformResult = movies.updateMany(
+  {},
+  [{ $set: { id_movie: { $toString: "$_id" } } }]
+);
+print("Documentos preparados:");
+printjson(transformResult);
+
 sh.enableSharding("sample_mflix");
 
-// 4. Aplicar la fragmentación Hashed
-sh.shardCollection("sample_mflix.movies", { "id_movie": "hashed" });
+// Evita intentar fragmentar de nuevo la colección si el script se ejecuta otra vez.
+const collectionMetadata = db.getSiblingDB("config").collections.findOne({ _id: namespace });
+if (!collectionMetadata) {
+  movies.createIndex({ id_movie: "hashed" });
+  sh.shardCollection(namespace, { id_movie: "hashed" });
+  print("La colección se fragmentó por id_movie hashed.");
+} else {
+  print("La colección sample_mflix.movies ya estaba fragmentada.");
+}
 
-print("Transformación y Sharding completados con éxito!");
+print("Distribución actual de películas:");
+movies.getShardDistribution();
