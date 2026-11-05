@@ -1,5 +1,7 @@
 # Proyecto 2a Evaluación — MongoDB Sharding
-
+Emilio Gallardo
+Edgar Gutierrez
+Carlos Diaz
 Proyecto de base de datos distribuida con MongoDB 7.0, Docker Compose y el dataset `sample_mflix`. La colección principal del ejercicio es `sample_mflix.movies`, fragmentada con una shard key hashed sobre `id_movie`.
 
 ## Estructura del repositorio
