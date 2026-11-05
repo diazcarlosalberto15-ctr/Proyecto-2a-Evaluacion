@@ -1,9 +1,9 @@
 # Proyecto 2a Evaluación — MongoDB Sharding
+
+Proyecto de base de datos distribuida con MongoDB 7.0, Docker Compose y el dataset `sample_mflix`. La colección principal del ejercicio es `sample_mflix.movies`, fragmentada con una shard key hashed sobre `id_movie`.
 Emilio Gallardo
 Edgar Gutierrez
 Carlos Diaz
-Proyecto de base de datos distribuida con MongoDB 7.0, Docker Compose y el dataset `sample_mflix`. La colección principal del ejercicio es `sample_mflix.movies`, fragmentada con una shard key hashed sobre `id_movie`.
-
 ## Estructura del repositorio
 
 - `docker/docker-compose.yml`: configuración de los contenedores del clúster.
@@ -43,7 +43,7 @@ Para revisar que los contenedores estén activos:
 docker ps
 ```
 
-## Apartado de Emilio: CRUD y monitoreo de la distribución
+## Apartado de: CRUD y monitoreo de la distribución
 
 Una vez inicializado el clúster y fragmentada la colección, ejecuta:
 
@@ -73,7 +73,7 @@ bash scripts/show-shard-status.sh
 
 Este comando ejecuta `sh.status(true)` desde `mongos`. Guarda una captura antes del CRUD y otra después para comparar la sección de chunks.
 
-### Galería de evidencias de Emilio
+### Galería de evidencias 
 
 <img width="1917" height="1034" alt="chunks 01" src="https://github.com/user-attachments/assets/cb76f8ea-b98c-424a-86ef-8d000d5c0830" />
 <img width="1917" height="1029" alt="prueba del crud 01" src="https://github.com/user-attachments/assets/0931e53d-ff4f-47d2-9313-835d782a3912" />
